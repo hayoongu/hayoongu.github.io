@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고양이 체지방률 계산기</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f7fc;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator-container {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #003366;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #003366;
+        }
+
+        input[type="number"] {
+            width: calc(100% - 10px);
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #0066cc;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 18px;
+            color: #003366;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>고양이 체지방률 계산기</h1>
+        <form id="fatCalculatorForm">
+            <label for="waist">허리둘레 (cm):</label>
+            <input type="number" id="waist" name="waist" required>
+            <label for="legLength">다리길이 (cm):</label>
+            <input type="number" id="legLength" name="legLength" required>
+            <button type="submit">계산하기</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('fatCalculatorForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // 기본 동작 방지
+
+            // 입력된 값 가져오기
+            const waist = parseFloat(document.getElementById('waist').value);
+            const legLength = parseFloat(document.getElementById('legLength').value);
+
+            // 체지방률 계산
+            const fatPercentage = calculateFatPercentage(waist, legLength);
+
+            // 결과 표시
+            document.getElementById('result').innerText = `고양이의 체지방률은 ${fatPercentage.toFixed(2)}% 입니다.`;
+        });
+
+        // 체지방률 계산 함수
+        function calculateFatPercentage(waist, legLength) {
+            return (waist - legLength) * 1.5 - 9;
+        }
+    </script>
+</body>
+</html>
